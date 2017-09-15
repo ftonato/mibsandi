@@ -1,24 +1,81 @@
 @-webkit-keyframes rotate {
   from {
-    -webkit-transform: rotate(0);
-            transform: rotate(0);
+    -webkit-transform: scale(.75);
+    transform: scale(.75);
   }
   to {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+@keyframes rotate {
+  from {
+    -webkit-transform: scale(.75);
+    transform: scale(.75);
+  }
+  to {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  to {
+    -webkit-transform: rotate(450deg);
+    transform: rotate(450deg);
   }
 }
 @keyframes rotate {
   from {
     -webkit-transform: rotate(0);
-            transform: rotate(0);
+    transform: rotate(0);
   }
   to {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
+    -webkit-transform: rotate(450deg);
+    transform: rotate(450deg);
   }
 }
+
+@-webkit-keyframes line {
+  0% {
+    stroke-dasharray: 2, 85.964;
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  50% {
+    stroke-dasharray: 65.973, 21.9911;
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dasharray: 2, 85.964;
+    stroke-dashoffset: -65.973;
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+}
+@keyframes line {
+  0% {
+    stroke-dasharray: 2, 85.964;
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  50% {
+    stroke-dasharray: 65.973, 21.9911;
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dasharray: 2, 85.964;
+    stroke-dashoffset: -65.973;
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+}
+
 *, *:before, *:after {
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -34,18 +91,19 @@ body {
 header {
   width: 100%;
   height: 3.4rem;
-  background: -webkit-linear-gradient(bottom left, #38C3D9, #4CE6CF);
+  background: -webkit-gradient(linear, left bottom, right top, from(#38C3D9), to(#4CE6CF));
   background: linear-gradient(bottom left, #38C3D9, #4CE6CF);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   padding: 0 1.2rem;
+  -webkit-box-shadow: 0 -0.5em 1em 0.4em rgba(0, 0, 0, 0.8);
   box-shadow: 0 -0.5em 1em 0.4em rgba(0, 0, 0, 0.8);
   position: fixed;
 }
@@ -56,34 +114,56 @@ header > .title {
 header > .reload {
   height: 100%;
   width: 3em;
-  -webkit-mask: url("https://png.icons8.com/reset/androidL/36") center/2em 2em no-repeat;
-          mask: url("https://png.icons8.com/reset/androidL/36") center/2em 2em no-repeat;
+  -webkit-mask: url("../images/ic_refresh_white_24px.svg") center/2em 2em no-repeat;
+  mask: url("../images/ic_refresh_white_24px.svg") center/2em 2em no-repeat;
   background: white;
   outline: 0 none !important;
   cursor: pointer;
+
+  -webkit-transition: opacity 0.6s linear;
+  transition: opacity 0.6s linear;
 }
-header > .reload:hover {
-  -webkit-animation: rotate 2s infinite linear;
-          animation: rotate 2s infinite linear;
+header > .reload:hover,
+header > .reload:focus {
+  opacity: 0.6;
 }
 
 main {
-  background: #e0e0e0;
+  background-color: #e0e0e0;
   height: 100%;
   padding: 4.5em 1.2rem 1.2rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-flow: column;
-      flex-flow: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-flow: column;
 }
 
 .phrase-card {
   background: white;
   margin-top: 1em;
   padding: 1rem;
+  -webkit-box-shadow: 0.1em 0.1em 0.5em 0em rgba(0, 0, 0, 0.3);
   box-shadow: 0.1em 0.1em 0.5em 0em rgba(0, 0, 0, 0.3);
 }
 .phrase-card > .author {
   text-align: right;
+}
+
+.loader {
+  left: 50%;
+  top: 50%;
+  position: fixed;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.loader #spinner {
+  stroke: #38C3D9;
+  stroke-width: 3px;
+  -webkit-transform-origin: 50%;
+  transform-origin: 50%;
+  -webkit-animation: line 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite, rotate 1.6s linear infinite;
+  animation: line 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite, rotate 1.6s linear infinite;
 }
