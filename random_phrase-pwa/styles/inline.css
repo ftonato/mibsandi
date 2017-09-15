@@ -1,1 +1,89 @@
-/* TODO add css here */
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+@keyframes rotate {
+  from {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+body {
+  border: 0;
+  margin: 0;
+  font-size: 14px;
+  height: 100vh;
+  color: #222;
+  font-family: 'Open Sans', sans-serif;
+}
+
+header {
+  width: 100%;
+  height: 3.4rem;
+  background: -webkit-linear-gradient(bottom left, #38C3D9, #4CE6CF);
+  background: linear-gradient(bottom left, #38C3D9, #4CE6CF);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 1.2rem;
+  box-shadow: 0 -0.5em 1em 0.4em rgba(0, 0, 0, 0.8);
+  position: fixed;
+}
+header > .title {
+  font-size: 1.2em;
+  color: white;
+}
+header > .reload {
+  height: 100%;
+  width: 3em;
+  -webkit-mask: url("https://png.icons8.com/reset/androidL/36") center/2em 2em no-repeat;
+          mask: url("https://png.icons8.com/reset/androidL/36") center/2em 2em no-repeat;
+  background: white;
+  outline: 0 none !important;
+  cursor: pointer;
+}
+header > .reload:hover {
+  -webkit-animation: rotate 2s infinite linear;
+          animation: rotate 2s infinite linear;
+}
+
+main {
+  background: #e0e0e0;
+  height: 100%;
+  padding: 4.5em 1.2rem 1.2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: column;
+      flex-flow: column;
+}
+
+.phrase-card {
+  background: white;
+  margin-top: 1em;
+  padding: 1rem;
+  box-shadow: 0.1em 0.1em 0.5em 0em rgba(0, 0, 0, 0.3);
+}
+.phrase-card > .author {
+  text-align: right;
+}
