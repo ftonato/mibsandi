@@ -1,6 +1,6 @@
 {
-  "name": "Random Phrase",
-  "short_name": "Random Phrase",
+  "name": "QuoteApp",
+  "short_name": "QuoteApp",
   "lang": "pt-BR",
   "icons": [{
     "src": "images/icons/icon-128x128.png",
