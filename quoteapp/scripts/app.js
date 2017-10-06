@@ -41,8 +41,8 @@
     if(app.selectedQuotes.length === 0) return initialQuote;
     if(app.selectedQuotes.length === 1) return app.selectedQuotes[0];
 
-    var randomIndex = Math.floor(Math.random() * (quotes.length - 1));
-    return quotes[randomIndex].id !== lastId ? quotes[randomIndex] : app.getRandomQuote();
+    var randomIndex = Math.floor(Math.random() * (app.selectedQuotes.length - 1));
+    return app.selectedQuotes[randomIndex].id !== lastId ? app.selectedQuotes[randomIndex] : app.getRandomQuote();
   }
 
   /*
