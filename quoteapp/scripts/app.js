@@ -10,29 +10,71 @@
 
   document.getElementById('reload').addEventListener('click', function() {
     // Refresh all of the quotes
-    //app.updateQuotes();
+    var quote = app.getRandomQuote();
+    app.updateQuoteCard(quote);
   });
+
+  // TODO add toggle loading method here
+  app.setLoading = function(status) {
+    var status = status || false;
+    var $card = document.querySelector('.phrase-card');
+
+    if (status) {
+      $card.setAttribute('hidden', true);
+      app.spinner.removeAttribute('hidden', true);
+      app.isLoading = true;
+    } else {
+      $card.removeAttribute('hidden');
+      app.spinner.setAttribute('hidden', true);
+      app.isLoading = false;
+    }
+  }
 
   // TODO add update card method here
   app.updateQuoteCard = function(data) {
-    //var quote = app.getRandomQuote()
-    //app.lastId = quote.id
+    app.setLoading(true);
+    app.lastId = data.id || 0;
+
     var text = document.querySelector('.text')
     , author = document.querySelector('.author');
 
     text.innerHTML = data.text;
     author.innerHTML = data.author;
+
+    app.setLoading(false);
   };
 
   // use fetch to save locally all quotes from /data.json
   // used to save in localStorage
-  app.updateQuotes = function() {
-    fetch('/data.json')
-      .then(quotes => quotes.json())
-      .then(quotes => app.selectedQuotes = quotes)
-      .catch(error => app.selectedQuotes = [initialQuote])
-      // .then(quotes => localStorage.setItem('quotes', quotes), localStorage.setItem('quotes' [initialQuote]))
+  app.getQuotes = function() {
+    var url = 'data.json';
+
+    // TODO add cache logic here
+
+    // Fetch the latest data.
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+      if (request.readyState === XMLHttpRequest.DONE) {
+        if (request.status === 200) {
+          var response = JSON.parse(request.response);
+
+          app.selectedQuotes = response;
+          app.saveSelectedQuotes(app.selectedQuotes);
+        }
+      } else {
+        // Return the initial quote since no data is available.
+        app.updateQuoteCard(initialQuote);
+      }
+    };
+    request.open('GET', url);
+    request.send();
   }
+
+  // TODO add saveSelectedQuotes function here
+  // Save list of quotes to localStorage.
+  app.saveSelectedQuotes = function(selectedQuotes) {
+    localStorage.selectedQuotes = JSON.stringify(selectedQuotes);
+  };
 
   /* if app has no quotes, return default quote
    * if app has only one quote, return that
@@ -57,6 +99,20 @@
   // app.updateQuoteCard(initialQuote);
 
   // TODO add startup code here
+  app.selectedQuotes = localStorage.selectedQuotes;
+  if (app.selectedQuotes) {
+    app.selectedQuotes = JSON.parse(app.selectedQuotes);
+    console.log('Existem dados no localStorage')
+
+    var quote = app.getRandomQuote();
+    app.updateQuoteCard(quote);
+  } else {
+    /* The user is using the app for the first time, or the user has not
+     * saved any quotes, so show the user some fake data.
+     */
+    app.updateQuoteCard(initialQuote);
+    app.getQuotes();
+  }
 
   // TODO add service worker code here
   if ('serviceWorker' in navigator) {
