@@ -20,11 +20,11 @@
     var $card = document.querySelector('.phrase-card');
 
     if (status) {
-      $card.setAttribute('hidden', true);
+      $card.classList.add('hidden');
       app.spinner.removeAttribute('hidden', true);
       app.isLoading = true;
     } else {
-      $card.removeAttribute('hidden');
+      $card.classList.remove('hidden');
       app.spinner.setAttribute('hidden', true);
       app.isLoading = false;
     }
