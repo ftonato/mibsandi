@@ -38,10 +38,11 @@
     var text = document.querySelector('.text')
     , author = document.querySelector('.author');
 
-    text.innerHTML = data.text;
-    author.innerHTML = data.author;
-
-    app.setLoading(false);
+    setTimeout(function() {
+      text.innerHTML = data.text;
+      author.innerHTML = data.author;
+      app.setLoading(false);
+    }, 800);
   };
 
   // use fetch to save locally all quotes from /data.json
