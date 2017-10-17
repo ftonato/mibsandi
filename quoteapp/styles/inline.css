@@ -147,6 +147,13 @@ main {
   padding: 1rem;
   -webkit-box-shadow: 0.1em 0.1em 0.5em 0em rgba(0, 0, 0, 0.3);
   box-shadow: 0.1em 0.1em 0.5em 0em rgba(0, 0, 0, 0.3);
+  -webkit-transition: opacity .3s ease-in-out;
+  -o-transition: opacity .3s ease-in-out;
+  transition: opacity .3s ease-in-out;
+  opacity: 1;
+}
+.phrase-card.hidden {
+  opacity: 0;
 }
 .phrase-card > .author {
   text-align: right;
